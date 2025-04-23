@@ -51,6 +51,7 @@ comp_pokemon = " "
 
 
 # Pokemon choosing function - user gives a string as a pokemon name, pass it to API.
+# NICK: Print list of pokemon to choose from?; Make sure accuracy and power of moves is not None
 def user_pokemon_choice():
     while True:
         user_input = input("Choose your fighter: ").strip().lower()
@@ -86,8 +87,19 @@ combined_stats = {
 }
 
 # List of moves dictionary for both pokemon.
+player_moves_list = api_logic.return_pokemon_moves(user_pokemon)
+computer_moves_list = api_logic.return_pokemon_moves(comp_pokemon)
 
-print(combined_stats)
+player_moves_dict = {}
+for move in player_moves_list:
+    player_moves_dict[move] = api_logic.return_move_stats(move)
+
+computer_moves_dict = {}
+for move in computer_moves_list:
+    computer_moves_dict[move] = api_logic.return_move_stats(move)
+
+print(player_moves_dict)
+print(computer_moves_dict)
 # Call the API logic to retrieve the information - so use API call logic to retrieve the stats for the comp
 #   pokemon and the user pokemon, store that in a dictionary, pass it to fight logic.
 
@@ -96,65 +108,48 @@ print(combined_stats)
 
     # Retrieved data can be saved in an object, one for the user one for the computer.
 
-
-# Fight logic - compare some sort of stats?
-
-    # Speed highest goes first, first turn.
-
-    # On your turn:
-        # Given list of their abilities.
-
-        # Choose which ability you want.
-            # Check to make sure ability option is valid.
-
-        # Computer randomly chooses ability from their respective list.
-
-        # maths - who wins.
-
-        # Subtraction of health, call HP check???
-
-    # HP checking function, called at end of fight round.
-        # Damage done to the pokemon is passed by the fight_round logic.
-
-        # Checks to make sure if either pokemon is ded.
-
-            # If no one ded, call fight round again. Repeat process.
-
-            # If someone ded, either user wins or computer wins.
-
 def damage(move_power,pokemon_attack,enemy_defense):
-    damage_dealt = int(pokemon_attack + move_power - enemy_defense)
+    damage_dealt = int((pokemon_attack + move_power - enemy_defense) / 10)
     return max(1,damage_dealt)
 
 # Fight logic - compare some sort of stats?
 
     # Speed highest goes first, first turn.
-if pokemon_dict["player_pokemon"]["speed"] > pokemon_dict["npc_pokemon"]["speed"]:
+if combined_stats["player_pokemon"]["speed"] > combined_stats["computer_pokemon"]["speed"]:
     turn = 0
-elif pokemon_dict["npc_pokemon"]["speed"] > pokemon_dict["player_pokemon"]["speed"]:
+elif combined_stats["computer_pokemon"]["speed"] > combined_stats["player_pokemon"]["speed"]:
     turn = 1
 else:
-    turn = np.randon.choice([0,1])
-while pokemon_dict["player_pokemon"]["hp"] > 0 and pokemon_dict["npc_pokemon"]["hp"] > 0:
+    turn = np.random.choice([0,1])
+while combined_stats["player_pokemon"]["hp"] > 0 and combined_stats["computer_pokemon"]["hp"] > 0:
      if turn % 2 == 0:
 
     # On your turn:
         # Given list of their abilities.
-         print(player_abilities)
+         print(player_moves_list)
         # Choose which ability you want.
             # Check to make sure ability option is valid.
-         ability = ""
-         while ability not in player_abilities:
-             ability = input("Select move to use: ")
-         pokemon_dict["npc_pokemon"]["hp"] -= damage(move_power,pokemon_attack,enemy_defense)
+         move = ""
+         while move not in player_moves_list:
+             move = input("Select move to use: ")
+         if np.random.randint(0,100) < player_moves_dict[move]["accuracy"]:
+            combined_stats["computer_pokemon"]["hp"] -= damage(player_moves_dict[move]["power"],combined_stats["player_pokemon"]["attack"],combined_stats["computer_pokemon"]["defense"])
+            print(f"Hit! Enemy hp: {combined_stats["computer_pokemon"]["hp"]}")
+         else:
+             print("You missed")
          turn += 1
         # Computer randomly chooses ability from their respective list.
      else:
-         enemy_move = np.random.choice(enemy_abilities)
-         print(f"Ouch, {enemy_move}!")
-         pokemon_dict["player_pokemon"]["hp"] -= damage(move_power, pokemon_attack, enemy_defense)
+         enemy_move = np.random.choice(computer_moves_list)
+         if np.random.randint(0, 100) < computer_moves_dict[enemy_move]["accuracy"]:
+            print(f"Ouch, {enemy_move}!")
+            combined_stats["player_pokemon"]["hp"] -= damage(computer_moves_dict[enemy_move]["power"],combined_stats["computer_pokemon"]["attack"],combined_stats["player_pokemon"]["defense"])
+            print(f"Your hp : {combined_stats["player_pokemon"]["hp"]}")
+         else:
+             print(f"{comp_pokemon} misses")
+         turn += 1
         # maths - who wins.
-if pokemon_dict["npc_pokemon"]["hp"] <= 0:
+if combined_stats["computer_pokemon"]["hp"] <= 0:
     print("You Win!")
 else:
     print("You Lose")

@@ -2,8 +2,7 @@ import requests
 import json
 import random
 
-from api_logic import return_pokemon_list
-
+import api_logic
 """
 # Get the list of pokemon from the API
 url = 'https://pokeapi.co/api/v2/pokemon/'
@@ -43,7 +42,7 @@ print('Ability: {}'.format(ability['name']))"""
 
 
 # Call pokemon_return_list first, keep list.
-computer_pokemon_list = return_pokemon_list()
+computer_pokemon_list = api_logic.return_pokemon_list()
 user_pokemon = " "
 comp_pokemon = " "
 
@@ -70,6 +69,18 @@ def comp_pokemon_choice(pokemon_list):
 user_pokemon = user_pokemon_choice()
 comp_pokemon = comp_pokemon_choice(computer_pokemon_list)
 
+# Combine as one dictionary. user_pokemon is first key, comp_pokemon is second key
+user_stats = api_logic.return_pokemon_dict(user_pokemon)
+comp_stats = api_logic.return_pokemon_dict(comp_pokemon)
+
+combined_stats = {
+    user_stats["name"]: user_stats,
+    comp_stats["name"]: comp_stats
+}
+
+# List of moves dictionary for both pokemon.
+
+print(combined_stats)
 # Call the API logic to retrieve the information - so use API call logic to retrieve the stats for the comp
 #   pokemon and the user pokemon, store that in a dictionary, pass it to fight logic.
 

@@ -3,6 +3,8 @@ import json
 import random
 
 import api_logic
+from api_logic import validate_pokemon
+
 """
 # Get the list of pokemon from the API
 url = 'https://pokeapi.co/api/v2/pokemon/'
@@ -56,6 +58,10 @@ def user_pokemon_choice():
             print("Sorry, I do not think that's a real Pokémon. Try again.\n")
             continue
 
+        if not api_logic.validate_pokemon((user_input)):
+            print(f"Sorry, I do not think that's a real pokemon. Try again\n")
+            continue
+
         print(f"You chose '{user_input.capitalize()}'!")
         return user_input
 
@@ -74,8 +80,8 @@ user_stats = api_logic.return_pokemon_dict(user_pokemon)
 comp_stats = api_logic.return_pokemon_dict(comp_pokemon)
 
 combined_stats = {
-    user_stats["name"]: user_stats,
-    comp_stats["name"]: comp_stats
+    "player_pokemon": user_stats,
+    "computer_pokemon": comp_stats
 }
 
 # List of moves dictionary for both pokemon.

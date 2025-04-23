@@ -4,7 +4,8 @@ import random
 
 import api_logic
 from api_logic import validate_pokemon
-
+import numpy as np
+import math
 """
 # Get the list of pokemon from the API
 url = 'https://pokeapi.co/api/v2/pokemon/'
@@ -121,3 +122,49 @@ print(combined_stats)
 
             # If someone ded, either user wins or computer wins.
 
+def damage(move_power,pokemon_attack,enemy_defense):
+    damage_dealt = int(pokemon_attack + move_power - enemy_defense)
+    return max(1,damage_dealt)
+
+# Fight logic - compare some sort of stats?
+
+    # Speed highest goes first, first turn.
+if pokemon_dict["player_pokemon"]["speed"] > pokemon_dict["npc_pokemon"]["speed"]:
+    turn = 0
+elif pokemon_dict["npc_pokemon"]["speed"] > pokemon_dict["player_pokemon"]["speed"]:
+    turn = 1
+else:
+    turn = np.randon.choice([0,1])
+while pokemon_dict["player_pokemon"]["hp"] > 0 and pokemon_dict["npc_pokemon"]["hp"] > 0:
+     if turn % 2 == 0:
+
+    # On your turn:
+        # Given list of their abilities.
+         print(player_abilities)
+        # Choose which ability you want.
+            # Check to make sure ability option is valid.
+         ability = ""
+         while ability not in player_abilities:
+             ability = input("Select move to use: ")
+         pokemon_dict["npc_pokemon"]["hp"] -= damage(move_power,pokemon_attack,enemy_defense)
+         turn += 1
+        # Computer randomly chooses ability from their respective list.
+     else:
+         enemy_move = np.random.choice(enemy_abilities)
+         print(f"Ouch, {enemy_move}!")
+         pokemon_dict["player_pokemon"]["hp"] -= damage(move_power, pokemon_attack, enemy_defense)
+        # maths - who wins.
+if pokemon_dict["npc_pokemon"]["hp"] <= 0:
+    print("You Win!")
+else:
+    print("You Lose")
+        # Subtraction of health, call HP check???
+
+    # HP checking function, called at end of fight round.
+        # Damage done to the pokemon is passed by the fight_round logic.
+
+        # Checks to make sure if either pokemon is ded.
+
+            # If no one ded, call fight round again. Repeat process.
+
+            # If someone ded, either user wins or computer wins.

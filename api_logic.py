@@ -30,6 +30,17 @@ def return_pokemon_deeper_stat(name: str, stat: str):
     stats = pokemon["stats"]
     return stats[stats_list.index(stat)]["base_stat"]
 
+def return_pokemon_dict(name: str):
+    name = name.lower()
+    dict = {
+        "name": name,
+        "speed": return_pokemon_deeper_stat(name, "speed"),
+        "hp": return_pokemon_deeper_stat(name, "hp"),
+        "attack": return_pokemon_deeper_stat(name, "attack"),
+        "defense": return_pokemon_deeper_stat(name, "defense"),
+    }
+    return dict
+
 def return_pokemon_moves(name: str):
     response = requests.get('https://pokeapi.co/api/v2/pokemon/' + name.lower())
     pokemon = json.loads(response.text)
@@ -51,5 +62,3 @@ def return_move_stats(name: str):
 
 def output_api_call(call):
     print(json.dumps(call, indent=4))
-
-output_api_call(return_move_stats(return_pokemon_moves("pikachu")[0]))

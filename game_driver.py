@@ -2,6 +2,7 @@ import requests
 import json
 
 import api_logic
+from api_logic import return_pokemon_list
 
 """
 # Get the list of pokemon from the API
@@ -42,24 +43,24 @@ print('Ability: {}'.format(ability['name']))"""
 
 
 # Call pokemon_return_list first, keep list.
+computer_pokemon_list = return_pokemon_list()
 
-    # Save that pokemon_list
+# Pokemon choosing function - user gives a string as a pokemon name, pass it to API.
+    # User input picks a pokemon.
+    # Passes it to API call as argument.
 
-# Pokemon choosing function, pass it the pokemon list.
-    # Print the pokemon list for the user, ask for user input.
+        # If valid, save it was user_pokemon
+            # Assuming no pokemons contain numbers in their name, can use isDigit() as one check.
 
-    # User input  chooses their pokemon from list. Computer is randomly assigned one from list.
+        # If not valid, tell user they chose a fake pokemon and that they need to try again.
 
-    # pokemon_list is the list of pokemon.
-        # Show user 20 potential pokemon, let them pick one.
 
-            # If they attempt to pick a invalid pokemon, tell them no, try again.
+    # Pass to API logic as user_pokemon_name
 
-            # Once valid pokemon is chosen,
 
-            # Pass to API logic as user_pokemon_name
+    # Computer gets given random pokemon based on API list.
+        # List of computer choices is saved as computer_pokemon_list
 
-        # Computer gets given random pokemon based on API list.
             # num_py.choice list will pick a random item from the list.
 
             # Save whatever that is at the computer's pokemon.

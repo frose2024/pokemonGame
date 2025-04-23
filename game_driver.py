@@ -1,7 +1,7 @@
 import requests
 import json
+import random
 
-import api_logic
 from api_logic import return_pokemon_list
 
 """
@@ -44,31 +44,36 @@ print('Ability: {}'.format(ability['name']))"""
 
 # Call pokemon_return_list first, keep list.
 computer_pokemon_list = return_pokemon_list()
+user_pokemon = " "
+comp_pokemon = " "
+
 
 # Pokemon choosing function - user gives a string as a pokemon name, pass it to API.
-    # User input picks a pokemon.
-    # Passes it to API call as argument.
+def user_pokemon_choice():
+    while True:
+        user_input = input("Choose your fighter: ").strip().lower()
 
-        # If valid, save it was user_pokemon
-            # Assuming no pokemons contain numbers in their name, can use isDigit() as one check.
+        if any(char.isdigit() for char in user_input):
+            print("Sorry, I do not think that's a real Pokémon. Try again.\n")
+            continue
 
-        # If not valid, tell user they chose a fake pokemon and that they need to try again.
+        print(f"You chose '{user_input.capitalize()}'!")
+        return user_input
 
-
-    # Pass to API logic as user_pokemon_name
-
-
-    # Computer gets given random pokemon based on API list.
-        # List of computer choices is saved as computer_pokemon_list
-
-            # num_py.choice list will pick a random item from the list.
-
-            # Save whatever that is at the computer's pokemon.
-
-            # Pass to API logic as comp_pokemon_name
+# Computer randomly selects from the official list
+def comp_pokemon_choice(pokemon_list):
+    comp_choice = random.choice(pokemon_list)
+    print(f"The computer chose '{comp_choice.capitalize()}'!")
+    return comp_choice
 
 
+user_pokemon = user_pokemon_choice()
+comp_pokemon = comp_pokemon_choice(computer_pokemon_list)
 
+# Call the API logic to retrieve the information - so use API call logic to retrieve the stats for the comp
+#   pokemon and the user pokemon, store that in a dictionary, pass it to fight logic.
+
+# comp_pokemon_choice(comp_pokemon)
 # API call, retrieve data for computer_pokemon and user_pokemon
 
     # Retrieved data can be saved in an object, one for the user one for the computer.

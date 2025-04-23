@@ -30,7 +30,7 @@ def return_pokemon_deeper_stat(name: str, stat: str):
     stats = pokemon["stats"]
     return stats[stats_list.index(stat)]["base_stat"]
 
-def return_pokemon_moves(name :str):
+def return_pokemon_moves(name: str):
     response = requests.get('https://pokeapi.co/api/v2/pokemon/' + name.lower())
     pokemon = json.loads(response.text)
     full_moves = pokemon["moves"]
@@ -40,11 +40,16 @@ def return_pokemon_moves(name :str):
             moves.append(move["move"]["name"])
     return moves
 
+def return_move_stats(name: str):
+    response = requests.get('https://pokeapi.co/api/v2/move/' + name.lower())
+    move_stats = json.loads(response.text)
+    move = {
+        "accuracy": move_stats["accuracy"],
+        "power": move_stats["power"]
+    }
+    return move
+
 def output_api_call(call):
     print(json.dumps(call, indent=4))
 
-print(validate_pokemon(input()))
-#output_api_call(return_pokemon_list())
-#output_api_call(return_pokemon_moves("pikachu"))
-#output_api_call(return_pokemon_stat("pikachu", "moves"))
-#print()
+output_api_call(return_move_stats(return_pokemon_moves("pikachu")[0]))

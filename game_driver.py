@@ -41,20 +41,30 @@ print('Height: {}'.format(height_formatted) + "(m)")
 print('Ability: {}'.format(ability['name']))"""
 
 
+# Call pokemon_return_list first, keep list.
 
+    # Save that pokemon_list
 
-# User chooses their pokemon from list. Computer is randomly assigned one from list.
+# Pokemon choosing function, pass it the pokemon list.
+    # Print the pokemon list for the user, ask for user input.
 
-    # Show user 20 potential pokemon, let them pick one.
+    # User input  chooses their pokemon from list. Computer is randomly assigned one from list.
 
-        # If they attempt to pick a invalid pokemon, tell them no, try again.
+    # pokemon_list is the list of pokemon.
+        # Show user 20 potential pokemon, let them pick one.
 
-        # Once valid pokemon is chosen, pass that off the API logic.
+            # If they attempt to pick a invalid pokemon, tell them no, try again.
 
-    # Computer gets given random pokemon based on API list.
-        # num_py.choice list will pick a random item from the list.
+            # Once valid pokemon is chosen,
 
-        # Save whatever that is at the computer's pokemon.
+            # Pass to API logic as user_pokemon_name
+
+        # Computer gets given random pokemon based on API list.
+            # num_py.choice list will pick a random item from the list.
+
+            # Save whatever that is at the computer's pokemon.
+
+            # Pass to API logic as comp_pokemon_name
 
 
 
@@ -64,3 +74,27 @@ print('Ability: {}'.format(ability['name']))"""
 
 
 # Fight logic - compare some sort of stats?
+
+    # Speed highest goes first, first turn.
+
+    # On your turn:
+        # Given list of their abilities.
+
+        # Choose which ability you want.
+            # Check to make sure ability option is valid.
+
+        # Computer randomly chooses ability from their respective list.
+
+        # maths - who wins.
+
+        # Subtraction of health, call HP check???
+
+    # HP checking function, called at end of fight round.
+        # Damage done to the pokemon is passed by the fight_round logic.
+
+        # Checks to make sure if either pokemon is ded.
+
+            # If no one ded, call fight round again. Repeat process.
+
+            # If someone ded, either user wins or computer wins.
+

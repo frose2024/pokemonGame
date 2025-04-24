@@ -153,13 +153,4 @@ if combined_stats["computer_pokemon"]["hp"] <= 0:
     print("You Win!")
 else:
     print("You Lose")
-        # Subtraction of health, call HP check???
 
-    # HP checking function, called at end of fight round.
-        # Damage done to the pokemon is passed by the fight_round logic.
-
-        # Checks to make sure if either pokemon is ded.
-
-            # If no one ded, call fight round again. Repeat process.
-
-            # If someone ded, either user wins or computer wins.

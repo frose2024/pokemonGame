@@ -48,7 +48,9 @@ def return_pokemon_moves(name: str):
     moves = []
     for move in full_moves:
         if len(moves) < 5:
-            moves.append(move["move"]["name"])
+            new_move = move["move"]["name"]
+            if type(return_move_stats(new_move)["accuracy"]) == int:
+                moves.append(new_move)
     return moves
 
 def return_move_stats(name: str):

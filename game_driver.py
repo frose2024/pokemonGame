@@ -62,7 +62,13 @@ def user_pokemon_choice():
 
         if not api_logic.validate_pokemon((user_input)):
             print(f"Sorry, I do not think that's a real pokemon. Try again\n")
-            continue
+            show_options = input("Would you like to see some options? (Y/N").strip.lower()
+
+            if show_options == 'y':
+                print(computer_pokemon_list.capitalize())
+            elif show_options != 'n':
+                print("Please answer the question.")
+                continue
 
         print(f"You chose '{user_input.capitalize()}'!")
         return user_input
